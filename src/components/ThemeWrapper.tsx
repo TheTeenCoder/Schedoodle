@@ -1,5 +1,5 @@
 import React from 'react'
-import {useThemeColors} from '../hooks/index'
+import {useThemeColors} from '../hooks/theme'
 import classNames from 'classnames'
 
 const ThemeWrapper = (props: any) => {

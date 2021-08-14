@@ -1,15 +1,15 @@
 import classNames from "classnames";
 import React from "react";
-import { useThemeColors } from "../hooks";
+import { useThemeColors } from "../hooks/theme";
 
 const Input = (props: any) => {
   const colors = useThemeColors();
   const className = classNames(
-    `bg-${colors?.primary}`,
+    `bg-${colors?.textColor}`,
     `text-${colors?.secondary}`,
-    "px-4 py-2 rounded-xl shadow-xl"
+    "input"
   );
-  return <input {...props} type="text" className={className} placeholder="add schedule..."/>
+  return <input {...props} type="text" className={className} />;
 };
 
 export default Input;

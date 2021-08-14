@@ -1,7 +1,8 @@
 import React from "react";
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
-import "./styles/output.css";
+
 import "./App.css";
+import "./styles/tailwind.css";
 import Home from "./routes/Home";
 import Schedules from "./routes/Schedules";
 import "tippy.js/dist/tippy.css";

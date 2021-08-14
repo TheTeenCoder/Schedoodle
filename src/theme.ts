@@ -3,8 +3,9 @@ export default {
     default: {
       textColor: 'white',
       bgColor: 'black',
-      primary: 'gray-400',
-      secondary: 'gray-800'
+      primary: 'gray-300',
+      secondary: 'gray-800',
+      gradient: 'bg-gradient-to-r from-purple-400 via-pink-500 to-red-500'
     },
     ocean: {
       textColor: 'white',
