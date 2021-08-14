@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 interface Props {}
 
 const Navbar = (props: Props) => {
+
   return (
     <nav>
       <ol className="flex justify-center space-x-4 underline">
@@ -14,7 +15,7 @@ const Navbar = (props: Props) => {
           <Link to="/app">App</Link>
         </li>
         <li>
-          <Link to="/about">Home</Link>
+          <Link to="/about">About.</Link>
         </li>
       </ol>
     </nav>
