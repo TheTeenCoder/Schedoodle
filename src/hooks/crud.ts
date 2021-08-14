@@ -1,28 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import { Schedule } from "../types/index";
 
-type Time = {
-  start: string;
-  end: string;
+export const useSchedules = () => {
+  return useState<Schedule[]>(
+    JSON.parse(localStorage.getItem("schedules") || "[]")
+  );
 };
 
-interface Schedule {
-  name: string;
-  times: Array<Time>;
-  id: string;
-  note: string;
-}
+export const useCrud = () => {
 
-const useCrud = () => {
+  const [stateSchedules, setSchedules] = useSchedules();
+
   const createSchedule = (schedule: Schedule) => {
-    const schedules: Array<Schedule> =
-      JSON.parse(localStorage.getItem("schedules") || '[]');
+    const schedules: Array<Schedule> = JSON.parse(
+      localStorage.getItem("schedules") || "[]"
+    );
     schedules.push(schedule);
     localStorage.setItem("schedules", JSON.stringify(schedules));
+    setSchedules(schedules);
+    console.log(stateSchedules)
+    console.log('updated')
   };
 
   return {
     createSchedule,
   };
 };
-
-export default useCrud;

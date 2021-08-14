@@ -4,10 +4,8 @@ import Input from "./Input";
 import Tippy from "@tippyjs/react";
 import { useState } from "react";
 import Modal from "react-modal";
-import { useThemeColors } from "../hooks/theme";
-import classNames from "classnames";
-import { FadeIn } from "./animations";
-import Title from "./Title";
+import { useCrud } from "../hooks/crud";
+import { v4 as uuidv4 } from 'uuid';
 
 Modal.setAppElement("#root");
 
@@ -21,11 +19,20 @@ const PlusExtend = (props: any) => {
 
 const ScheduleForm = () => {
   const [name, setName] = useState<string>("");
-  // const [open, setOpen] = useState<boolean>(false);
-  const colors = useThemeColors();
-  const createSchedule = (e: any) => {
-    
-  }
+  const { createSchedule } = useCrud();
+  
+  const create = (e: any) => {
+
+    if(!name.trim()){
+
+    }
+    createSchedule({
+      name: name,
+      times: [],
+      id: uuidv4(),
+      note: ''
+    })
+  };
 
   return (
     <form className="mt-20 flex flex-col justify-center">
@@ -36,7 +43,7 @@ const ScheduleForm = () => {
           onChange={(e: any) => setName(e.target.value)}
           placeholder="add new schedule..."
         />
-        <PlusExtend onClick={createSchedule} />
+        <PlusExtend onClick={create} />
         {/* <Modal
           isOpen={open}
           onRequestClose={() => setOpen(false)}
