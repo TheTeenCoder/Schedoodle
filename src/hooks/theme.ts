@@ -1,5 +1,6 @@
 import { useState } from "react";
 import themeConfig from "../theme";
+import { createGlobalStyle } from "styled-components";
 
 type Theme = "default" | "ocean";
 
@@ -23,14 +24,12 @@ export const useTheme = () => {
 export const useThemeColors = () => {
   const theme = useTheme();
 
-  if (!theme) {
-    return themeConfig.theme.default;
-  }
-
   let themeList: string[] = ["default", "ocean"];
 
   if (themeList.includes(theme)) {
-    return themeConfig.theme[theme];
+    return themeConfig.theme[theme].tailwind;
   }
-  return null;
+  return themeConfig.theme.default.tailwind;
+
 };
+

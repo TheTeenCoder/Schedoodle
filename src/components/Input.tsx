@@ -7,9 +7,10 @@ const Input = (props: any) => {
   const className = classNames(
     `bg-${colors?.textColor}`,
     `text-${colors?.secondary}`,
-    "input"
+    `border-2 border-${colors.primary}`,
+    "input w-full"
   );
-  return <input {...props} type="text" className={className} />;
+  return <input {...props} type={props.type || "text"} className={className} />;
 };
 
 export default Input;

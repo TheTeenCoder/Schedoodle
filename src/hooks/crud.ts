@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Schedule } from "../types/index";
-import { atom, useAtom } from "jotai";
+import { Schedule, Time } from "../types/index";
+import { useAtom } from "jotai";
 import {atomWithStorage} from 'jotai/utils'
 
 const string = JSON.parse(localStorage.getItem("schedules") || "[]");
@@ -25,13 +25,21 @@ export const useCrud = () => {
       localStorage.getItem("schedules") || "[]"
     );
     schedules.push(schedule);
-    localStorage.setItem("schedules", JSON.stringify(schedules));
-    updateSchedules();
+    setSchedules(schedules);
+  };
+
+  const createTime = (id: string, Time: Time) => {
+    const schedules: Schedule[] = JSON.parse(
+      localStorage.getItem("schedules") || "[]"
+    );
+    schedules.find(schedule => schedule.id === id)?.times.push(Time);
+    setSchedules(schedules);
   };
 
   
 
   return {
-    createSchedule
+    createSchedule,
+    createTime
   };
 };

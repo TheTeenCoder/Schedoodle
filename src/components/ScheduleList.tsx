@@ -4,37 +4,59 @@ import { useLocalStorage } from "react-use";
 import { useThemeColors } from "../hooks/theme";
 import { Schedule } from "../types";
 import { useCrud, useSchedules } from "../hooks/crud";
-import { Trash } from "react-feather";
+import { Trash, X } from "react-feather";
 import { useState } from "react";
-import Modal from 'react-modal'
-import Title from './Title'
+import Modal from "react-modal";
+import Title from "./Title";
+import TimeForm from "../components/TimeForm";
+import TimesList from "../components/TimesList";
+
+
+Modal.setAppElement("#root");
 
 export const ScheduleItem = (props: Schedule) => {
   const colors = useThemeColors();
   const [open, setOpen] = useState(false);
+
   const className = classNames(
-    `bg-${colors?.bgColor}`,
     `text-${colors?.primary}`,
     `border-2 border-${colors?.primary}`,
     "flex flex-col rounded-xl shadow-xl justify-start items-start px-4 py-2 cursor-pointer"
   );
   return (
-    <div className={className} style={{width: "20rem"}}>
+    <div
+      className={className}
+      style={{ width: "20rem" }}
+      onClick={() => setOpen(true)}
+    >
       <div className="flex justify-between items-center">
         <h1 className="text-2xl">{props.name}</h1>
         {/* <Trash className={`text-${colors?.primary}`} /> */}
       </div>
-      {props.note && <p className="text-lg mt-3">{props.note}</p>}
+      <p className="text-md mt-3">{props.note ? props.note : "(No notes)"}</p>
+
       <Modal
-          isOpen={open}
-          onRequestClose={() => setOpen(false)}
-          className="VH-center border-2 border-black bg-white p-4 rounded-xl shadow-xl outline-none"
-        >
-          <div className="flex flex-col space-y-2">
-            <Title>Add Schedule.</Title>
-            
-          </div>
-        </Modal>
+        isOpen={open}
+        onRequestClose={() => setOpen(false)}
+        shouldCloseOnOverlayClick
+        shouldCloseOnEsc
+        className="VH-center border-2 border-black bg-white rounded-xl shadow-xl outline-none p-24"
+      >
+        <div className="justify-end items-center flex">
+          <h3 className="text-xs text-black bg-gray-300 p-2 rounded-xl ">
+            ESC
+          </h3>
+          <X
+            onMouseDown={() => setOpen(false)}
+            className="text-black cursor-pointer"
+          />
+        </div>
+        <div className="flex flex-col space-y-4">
+          <Title>Add Time.</Title>
+          <TimeForm id={props.id} />
+          <TimesList id={props.id}/>
+        </div>
+      </Modal>
     </div>
   );
 };

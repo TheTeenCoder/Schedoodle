@@ -1,13 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Plus } from "react-feather";
 import Input from "./Input";
 import Tippy from "@tippyjs/react";
-import { useState } from "react";
-import Modal from "react-modal";
-import { useCrud, useSchedules } from "../hooks/crud";
+import { useCrud } from "../hooks/crud";
 import { v4 as uuidv4 } from "uuid";
-
-Modal.setAppElement("#root");
 
 const PlusExtend = (props: any) => {
   return (
@@ -45,7 +41,6 @@ const ScheduleForm = () => {
           placeholder="add new schedule..."
         />
         <PlusExtend />
-        
       </div>
     </form>
   );

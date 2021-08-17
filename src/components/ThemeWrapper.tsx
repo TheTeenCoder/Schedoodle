@@ -1,22 +1,16 @@
-import React from 'react'
-import {useThemeColors} from '../hooks/theme'
-import classNames from 'classnames'
+import React from "react";
+import { useThemeColors } from "../hooks/theme";
+import { GlobalStyles } from "./GlobalStyles";
 
 const ThemeWrapper = (props: any) => {
-
   const colors = useThemeColors();
 
-  const className = classNames(
-    `bg-${colors?.bgColor}`,
-    `text-${colors?.textColor}`,
-    'h-screen h-full'
-  )
-
   return (
-    <div className={className}>
+    <div id="theme-wrapper">
+      <GlobalStyles textColor={colors.textColor} bgColor={colors.bgColor} />
       {props.children}
     </div>
-  )
-}
+  );
+};
 
 export default ThemeWrapper;
