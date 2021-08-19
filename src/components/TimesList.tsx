@@ -9,19 +9,27 @@ import { useState } from "react";
 import Title from "./Title";
 import TimeForm from "../components/TimeForm";
 
-export const TimeItem = (props: Time) => {
-  const colors = useThemeColors();
+interface ItemProps {
+  data: Time;
+  parentId: string;
+}
 
-  const className = classNames(
-    `text-${colors?.bgColor}`,
-    `border-2 border-${colors?.bgColor}`,
-    "flex flex-col rounded-xl shadow-xl justify-around items-start px-4 py-2"
-  );
+export const TimeItem = (props: ItemProps) => {
+  const { deleteTime } = useCrud();
+  
   return (
-    <div className={className}>
+    <div className="border-2 p-3 rounded-xl shadow-xl">
+      <div className="flex justify-end">
+        <Trash
+          className="cursor-pointer"
+          onClick={() => deleteTime(props.parentId, props.data.id)}
+        />
+      </div>
       <div className="flex flex-col items-start">
-        <h1 className="text-2xl">{props.name}</h1>
-        <h2>{props.start} to {props.end}</h2>
+        <h1 className="text-2xl">{props.data.name}</h1>
+        <h2>
+          {props.data.start} to {props.data.end}
+        </h2>
         {/* <Trash className={`text-${colors?.primary}`} /> */}
       </div>
     </div>
@@ -33,17 +41,15 @@ const TimesList = (props: { id: string }) => {
 
   return (
     <div className="space-y-3">
-      <h1 className="text-xl">Times.</h1>
+      {/* <h1 className="text-xl">Times.</h1> */}
       {value
         .find((schedule) => schedule.id === props.id)
         ?.times.map((element) => {
           return (
             <TimeItem
-              name={element.name}
-              id={element.id}
-              start={element.start}
-              end={element.end}
-              key={element.id}
+              key={props.id}
+              data={element}
+              parentId={props.id}
             />
           );
         })}

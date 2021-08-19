@@ -19,6 +19,9 @@ function App() {
           <Route path="/app">
             <Schedules />
           </Route>
+          {/* <Route path="/app/:id">
+            <Schedules />
+          </Route> */}
         </Switch>
       </Router>
     </ThemeWrapper>

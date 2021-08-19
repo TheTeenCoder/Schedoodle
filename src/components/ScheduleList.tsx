@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import React from "react";
-import { useLocalStorage } from "react-use";
 import { useThemeColors } from "../hooks/theme";
 import { Schedule } from "../types";
 import { useCrud, useSchedules } from "../hooks/crud";
@@ -11,50 +10,67 @@ import Title from "./Title";
 import TimeForm from "../components/TimeForm";
 import TimesList from "../components/TimesList";
 
-
 Modal.setAppElement("#root");
 
 export const ScheduleItem = (props: Schedule) => {
   const colors = useThemeColors();
   const [open, setOpen] = useState(false);
+  const { deleteSchedule } = useCrud();
+  const modalClassName = classNames(
+    `text-${colors.textColor}`,
+    `border-${colors.bgColor}`,
+    `bg-${colors.bgColor}`
+  );
 
   const className = classNames(
-    `text-${colors?.primary}`,
-    `border-2 border-${colors?.primary}`,
-    "flex flex-col rounded-xl shadow-xl justify-start items-start px-4 py-2 cursor-pointer"
+    `text-${colors.primary}`,
+    `border-2 border-${colors.primary}`,
+    "flex flex-col rounded-xl shadow-xl justify-start  px-4 py-2"
   );
+
   return (
-    <div
-      className={className}
-      style={{ width: "20rem" }}
-      onClick={() => setOpen(true)}
-    >
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl">{props.name}</h1>
-        {/* <Trash className={`text-${colors?.primary}`} /> */}
+    <div className={className} style={{ width: "20rem" }}>
+      <div className="flex justify-end">
+        <Trash
+          className="cursor-pointer"
+          onClick={() => deleteSchedule(props.id)}
+        />
       </div>
-      <p className="text-md mt-3">{props.note ? props.note : "(No notes)"}</p>
+      <div className="cursor-pointer" onClick={() => setOpen(true)}>
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl">{props.name}</h1>
+        </div>
+        <p className="text-md mt-3">{props.note ? props.note : "(No notes)"}</p>
+      </div>
 
       <Modal
         isOpen={open}
         onRequestClose={() => setOpen(false)}
         shouldCloseOnOverlayClick
         shouldCloseOnEsc
-        className="VH-center border-2 border-black bg-white rounded-xl shadow-xl outline-none p-24"
+        key={props.id}
+        style={{
+          content: {
+            maxHeight: "50rem",
+            maxWidth: "50rem",
+            overflowY: "scroll",
+          },
+        }}
+        className={
+          "VH-center w-full flex flex-col border-2 rounded-xl shadow-xl outline-none p-10 " +
+          modalClassName
+        }
       >
-        <div className="justify-end items-center flex">
+        <div className="items-center flex justify-end">
           <h3 className="text-xs text-black bg-gray-300 p-2 rounded-xl ">
             ESC
           </h3>
-          <X
-            onMouseDown={() => setOpen(false)}
-            className="text-black cursor-pointer"
-          />
+          <X onMouseDown={() => setOpen(false)} className="cursor-pointer" />
         </div>
         <div className="flex flex-col space-y-4">
           <Title>Add Time.</Title>
           <TimeForm id={props.id} />
-          <TimesList id={props.id}/>
+          <TimesList id={props.id} />
         </div>
       </Modal>
     </div>

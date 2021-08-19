@@ -3,17 +3,20 @@ import Input from "./Input";
 import Tippy from "@tippyjs/react";
 import { useCrud } from "../hooks/crud";
 import { v4 as uuidv4 } from "uuid";
+import { useThemeColors } from "../hooks/theme";
+import classNames from "classnames";
 
 interface Props {
   id: string;
 }
 
 const PlusExtend = (props: any) => {
+
   return (
     <Tippy content="Add time to schedule.">
       <button
         type="submit"
-        className="h-full bg-black text-white px-4 py-2 rounded-xl shadow-xl"
+        className="px-4 py-2 rounded-xl shadow-xl border-2"
         onClick={props.onClick}
       >
         Add Time.
